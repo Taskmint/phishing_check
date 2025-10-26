@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Test Data Viewer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .credential { border: 1px solid #ccc; padding: 15px; margin: 10px 0; }
+        .clear-btn { background: red; color: white; padding: 10px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Security Test Data Viewer</h1>
+    <button class="clear-btn" onclick="clearData()">Clear All Test Data</button>
+    <div id="dataContainer"></div>
+
+    <script>
+        function loadData() {
+            const data = JSON.parse(localStorage.getItem('securityTestData') || '[]');
+            const container = document.getElementById('dataContainer');
+            
+            if (data.length === 0) {
+                container.innerHTML = '<p>No test data found.</p>';
+                return;
+            }
+            
+            container.innerHTML = data.map((item, index) => `
+                <div class="credential">
+                    <h3>Test Entry ${index + 1}</h3>
+                    <p><strong>Email:</strong> ${item.email}</p>
+                    <p><strong>Password:</strong> ${item.password}</p>
+                    <p><strong>2FA:</strong> ${item.twofa || 'Not provided'}</p>
+                    <p><strong>Time:</strong> ${item.timestamp}</p>
+                    <p><strong>User Agent:</strong> ${item.userAgent}</p>
+                </div>
+            `).join('');
+        }
+        
+        function clearData() {
+            if (confirm('Clear all test data?')) {
+                localStorage.removeItem('securityTestData');
+                loadData();
+            }
+        }
+        
+        loadData();
+    </script>
+</body>
+</html>

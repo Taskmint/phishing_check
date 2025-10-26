@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurePortal Pro - Account Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .security-notice {
+            background: #ffeb3b;
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #ff9800;
+            font-weight: bold;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #e8e8e8;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+
+        .feature {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .feature i {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #3498db;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+
+        .data-preview {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Security Notice - Visible for educational purposes -->
+        <div class="security-notice">
+            🔒 SECURITY SIMULATION - This is a phishing awareness test page
+        </div>
+
+        <div class="header">
+            <div class="logo">SP</div>
+            <h1>SecurePortal Pro</h1>
+            <p>Enterprise Security Platform</p>
+        </div>
+
+        <div class="form-container">
+            <div class="alert alert-warning">
+                <strong>Security Alert:</strong> Verify your account to continue
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="2fa">2FA Code (Optional)</label>
+                    <input type="text" id="2fa" name="twofa" placeholder="Enter 6-digit code">
+                </div>
+
+                <button type="submit" class="btn">
+                    <span id="btnText">Secure Login</span>
+                    <div id="btnLoader" style="display: none;">Verifying...</div>
+                </button>
+            </form>
+
+            <div class="features">
+                <div class="feature">
+                    <div>🔒</div>
+                    <span>256-bit SSL</span>
+                </div>
+                <div class="feature">
+                    <div>🛡️</div>
+                    <span>2FA Ready</span>
+                </div>
+                <div class="feature">
+                    <div>⚡</div>
+                    <span>Fast & Secure</span>
+                </div>
+            </div>
+
+            <!-- Data preview for educational purposes -->
+            <div class="data-preview" id="dataPreview">
+                <strong>Captured Data (Educational Demo):</strong>
+                <div id="capturedData"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 SecurePortal Pro. All rights reserved.</p>
+            <p>This is a security awareness simulation</p>
+        </div>
+    </div>
+
+    <script>
+        // Store credentials in localStorage for educational demonstration
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const twofa = document.getElementById('2fa').value;
+            
+            // Show loading state
+            document.getElementById('btnText').style.display = 'none';
+            document.getElementById('btnLoader').style.display = 'block';
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                // Store in localStorage (educational purposes only)
+                const credentials = {
+                    email: email,
+                    password: password,
+                    twofa: twofa,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    ip: 'localhost' // Simulated for demo
+                };
+                
+                // Save to localStorage
+                const existingData = JSON.parse(localStorage.getItem('securityTestData') || '[]');
+                existingData.push(credentials);
+                localStorage.setItem('securityTestData', JSON.stringify(existingData));
+                
+                // Show captured data for educational purposes
+                document.getElementById('capturedData').innerHTML = `
+                    Email: ${credentials.email}<br>
+                    Password: ${credentials.password}<br>
+                    2FA Code: ${credentials.twofa || 'Not provided'}<br>
+                    Time: ${credentials.timestamp}<br>
+                    User Agent: ${credentials.userAgent.substring(0, 50)}...
+                `;
+                document.getElementById('dataPreview').style.display = 'block';
+                
+                // Reset form
+                document.getElementById('btnText').style.display = 'block';
+                document.getElementById('btnLoader').style.display = 'none';
+                
+                // Show success message (simulated)
+                alert('Security Test Complete: Credentials captured for educational purposes.\n\nThis simulates how phishing attacks work.');
+                
+            }, 2000);
+        });
+
+        // Display stored data if any exists
+        window.addEventListener('load', function() {
+            const storedData = JSON.parse(localStorage.getItem('securityTestData') || '[]');
+            if (storedData.length > 0) {
+                const latest = storedData[storedData.length - 1];
+                document.getElementById('capturedData').innerHTML = `
+                    <strong>Previous Test Data:</strong><br>
+                    Email: ${latest.email}<br>
+                    Time: ${latest.timestamp}
+                `;
+                document.getElementById('dataPreview').style.display = 'block';
+            }
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
